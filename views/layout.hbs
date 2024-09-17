@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{title}}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel='stylesheet' href="/css/bootstrap-3.3.7.min.css" />
+		<link rel='stylesheet' href="/css/fontawesome-4.4.0.min.css" />
+		<link rel='stylesheet' href="/css/chessboard-1.0.0.min.css" />
+		<link rel='stylesheet' href="/css/messenger-1.5.0.css" />
+		<link rel='stylesheet' href="/css/messenger-theme-future.css" />
+		<link rel='stylesheet' href="/css/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<ul class="nav nav-pills pull-right">
+					<li class="{{#if isHomePage}} active {{/if}}"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+					<li class="{{#if isPlayPage}} active {{/if}}"><a href="/play"><i class="fa fa-gamepad"></i> Play</a></li>
+					{{#if user}}
+					<li class="{{#if isAccountPage}} active {{/if}}"><a href="/profile" title="Go to your profile"><span id="loggedUser" data-user="{{ user.username }}"></span><i class="fa fa-user"></i> {{ user.username }}</a></li>
+					<li><a href="/logout" title="Sign out"><i class="fa fa-sign-out"></i></a></li>
+					{{else}}
+					<li class="{{#if isLoginPage}} active {{/if}}"><a href="/login"><i class="fa fa-sign-in"></i> Sign in</a></li>
+					{{/if}}
+				</ul>
+				<h3><i class="glyphicon glyphicon-knight"></i>Chess</h3>
+			</div>
+			<div class="content">
+				{{{body}}}
+			</div>
+			<div class="footer">
+				<p><a href="/monitor"><i class="fa fa-dashboard"></i> Server Statistics</a></p>
+			</div>
+		</div>
+		<script type="text/javascript" src="/lib/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" src="/lib/bootstrap-3.3.7.min.js"></script>
+		<script type="text/javascript" src="/lib/chessboard-1.0.0.min.js"></script>
+		<script type="text/javascript" src="/lib/chess-0.11.0.js"></script>
+		<script type="text/javascript" src="/lib/messenger.min-1.5.0.js"></script>
+		<script type="text/javascript" src="/lib/messenger-theme-future.js"></script>
+		<script type="text/javascript" src="/lib/socket.io-2.3.0.js"></script>
+		<script type="text/javascript" src="/js/board.js"></script>
+		<script type="text/javascript" src="/js/enginegame.js"></script>
+		<script type="text/javascript" src="/js/socketClient.js"></script>
+		<script type="text/javascript" src="/js/main.js"></script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-info ">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user-plus"></i> Please sign up</h3>
+            </div>
+            <form role="form" method="post" action="/register">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="text" pattern="^[a-zA-Z0-9]{3,12}$" minlength="3" maxlength="12" class="form-control" name="username" placeholder="User name" autofocus required autocomplete="off">
+						<span class="help-block">&nbsp;Must contain letters and numbers only.</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="8" maxlength="15" class="form-control" name="password" placeholder="Password" required autocomplete="off">
+						<span class="help-block">&nbsp;Must contain at least one number and one uppercase and lowercase letter.</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <p><button type="submit" class="btn btn-default center-block">Submit</button></p>
+                    <p class="text-center">You have already an account? login <a href="/login">here</a></p>
+                </div>
+            </form>
+        </div>
+        <div id="registerError" hidden="hidden">{{ error }}</div>
+    </div>
+</div>

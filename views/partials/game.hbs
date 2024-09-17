@@ -1,0 +1,153 @@
+<div class="row">
+	<div id="env" data-env="{{ envStringify }}"></div>
+    <div class="col-md-3">
+		{{#if token}}
+		<div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Messages</h4>
+            </div>
+            <div class="panel-body pre-scrollable">
+                <ul id="messages"></ul>
+            </div>
+            <div class="panel-footer">
+				<input class="form-control" id="chat" type="text" maxlength="20" placeholder="Write your a message">
+				<button id="sendButton" type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+		{{/if}}
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Moves</h4>
+            </div>
+            <div class="panel-body">
+                <textarea id="pgn" disabled></textarea>
+            </div>
+            {{#if cpu}}
+            <div class="panel-footer">
+                <p id="engineStatus">Engine Status</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div id="board" class="col-md-6" data-token="{{ token }}" data-side="{{ side }}"></div>
+    <div id="game-details" class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Players</h4>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <img src="/img/chesspieces/wikipedia/bK.png" class="side-img" alt="Black"/>
+                    <span id="player-black"></span>&nbsp;<i class="fa fa-clock-o"></i>
+					<span id="timeb" >00:00:00</span>
+                </p>
+				<div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Control Panel</h4>
+                    </div>
+                    <div class="panel-body">
+						{{#if cpu}}
+                        <div class="form-group">
+                            <label for="skillLevel" id="skillLabel" class="control-label" title="0 is the easiest level, 20 is the most difficult level">Skill Level (0-20):&nbsp</label>
+                            <input type="number" class="form-control" id="skillLevel" value="{{ envParsed.SKILL_LEVEL }}" />
+                        </div>
+						<div class="text-center">
+							<button id="hintButton" type="button" class="btn btn-primary control">Hint</button>
+							<select id="chessPieces" class="select">
+								<optgroup label="Pieces Style">
+								<option value="w" selected>Wikipedia</option>
+								<option value="a">Alpha</option>
+								<option value="u">Uscf</option>
+							</select>
+						</div>
+						{{/if}}
+                        <button id="saveButton" type="button" class="btn btn-primary control center-block">Save Game</button>
+						{{#if cpu}}
+                        <input type="file" class="form-control" id="file" />
+                        <button id="loadButton" type="button" class="btn btn-primary control center-block" disabled>Load Game</button>
+						<div class="text-center">
+							<div class="btn-group">
+								<button id="undoButton" type="button" class="btn btn-primary control">Undo</button>
+								<button id="redoButton" type="button" class="btn btn-primary control">Redo</button>
+							</div>
+						</div>
+						{{/if}}
+						{{#if token}}
+						<button id="drawButton" type="button" class="btn btn-warning control center-block">Draw Request</button>
+						{{/if}}
+                        <button id="resignButton" type="button" class="btn btn-danger center-block">{{#if cpu}}Reset Game{{else}}withdrawal{{/if}}</button>
+                    </div>
+                    <div class="panel-footer">
+                        <select id="promote" class="select">
+                            <option value="q" selected>Queen</option>
+                            <option value="r">Rook</option>
+                            <option value="b">Bishop</option>
+                            <option value="n">Knight</option>
+                        </select>
+						{{#if cpu}}
+                        <select id="engine" class="select">
+							<optgroup label="Engine">
+                            <option value="s" selected>Stockfish</option>
+                            <option value="t">Tomitank</option>
+							<option value="l">Lozza</option>
+                        </select>
+						{{/if}}
+                    </div>
+			    </div>
+                <p>
+                    <img src="/img/chesspieces/wikipedia/wK.png" class="side-img" alt="White"/>
+                    <span id="player-white"></span>&nbsp;<i class="fa fa-clock-o"></i>
+					<span id="timew" >00:00:00</span>
+                </p>
+            </div>
+        </div>
+    </div>
+	{{#if token}}
+	<div class="modal fade" id="gameResultPopup" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Game Over</h4>
+				</div>
+				<div class="modal-body">
+					<p id="gameResult"></p>
+				</div>
+				<div class="modal-footer">
+					<form  role="form" action="/" method="post">
+						<input type="number" id="resultGame" name="resultGame" value="0" min="0" max="1" hidden />
+						<input type="text" id="userWin" name="userWin" value="" hidden />
+						<input type="text" id="userLose" name="userLose" value="" hidden />
+						<button type="submit" class="btn btn-success">Return to home</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="modal fade" id="gameUrlPopup" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Game Start</h4>
+                </div>
+                <div class="modal-body">
+                    <p>To invite a friend, give him the following URL:</p>
+                    <p><em><span class="text-info" id="gameUrl"></span></em></p>
+                    <p>The game will be started once your friend joined the game.</p>
+                </div>
+                <div class="modal-footer">
+					<!--<span id="status" class="label label-success"></span>-->
+					<span>Time (min): </span>
+					<input type="number" id="time" value="{{ envParsed.TIME }}" />
+					<select id="friend" class="select">
+						<option value="c" selected>Choose a friend</option>
+						{{#each users}}
+						<option value="{{ username }}">{{ username }} - {{ rating }}</option>
+						{{/each}}
+                    </select>
+                    <a href="/play" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+	{{/if}}
+</div>

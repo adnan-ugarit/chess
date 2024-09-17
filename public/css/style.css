@@ -1,0 +1,60 @@
+.highlight-blue { box-shadow: inset 0 0 3px 3px blue; }
+
+.highlight-red { box-shadow: inset 0 0 3px 3px red; }
+
+.highlight-yellow { box-shadow: inset 0 0 3px 3px yellow; }
+
+#pgn {
+	resize: none;
+	width: 100%;
+	height: 150px;
+}
+
+.row { margin-top: 25px; }
+
+.side-img { width: 50px; }
+
+#chat {
+	float: left;
+	width: 170px;
+}
+
+#messages {
+	list-style: none;
+	height: 150px;
+}
+
+.message {
+    padding: 7px 12px;
+    border-radius: 25px;
+}
+
+.sender-message {
+    background-color: #EFA00B;
+    color: black;
+}
+
+.recipient-message {
+    background-color: #0076FF;
+    color: white;
+    right: 45px;
+    position: relative;
+}
+
+#skillLevel { width: 75px; }
+
+#time { width: 50px; }
+
+#file {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.control { margin-bottom: 5px; }
+
+.select { padding: 5px; }
+
+#skillLabel {
+	float: left;
+	margin-top:5px;
+}
